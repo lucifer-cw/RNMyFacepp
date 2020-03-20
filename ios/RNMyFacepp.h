@@ -7,5 +7,13 @@
 
 @interface RNMyFacepp : NSObject <RCTBridgeModule>
 
+@property (nonatomic, weak) UIViewController* rootViewController;    //  引导页提示文本颜色
+
++(instancetype) shareInstance ;
+
+-(void)checkMyFaceLicense;
+
+-(void)showCheckMessage;
+
 @end
   

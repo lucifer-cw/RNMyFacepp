@@ -3,27 +3,41 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3E7B58A1CC2AC0600A0062D /* RNMyFacepp.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNMyFacepp.m */; };
+		9948C9E424238AAE00AD5403 /* MGFaceIDIDCardKernelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9948C9E124238AAE00AD5403 /* MGFaceIDIDCardKernelKit.framework */; platformFilter = ios; };
+		9948C9E524238AAE00AD5403 /* MGFaceIDIDCardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9948C9E324238AAE00AD5403 /* MGFaceIDIDCardKit.framework */; platformFilter = ios; };
+		996A595C2424606500663C1E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 996A595A2424606500663C1E /* MBProgressHUD.m */; };
+		99C1169524236904005B7037 /* MGFaceIDBaseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C1168324234D6D005B7037 /* MGFaceIDBaseKit.framework */; platformFilter = ios; };
+		99C116962423690D005B7037 /* MGFaceIDLiveDetect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C1168424234D6D005B7037 /* MGFaceIDLiveDetect.framework */; platformFilter = ios; };
+		B3E7B58A1CC2AC0600A0062D /* RNMyFacepp.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNMyFacepp.m */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+		58B511D91A9E6C8500147676 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNMyFacepp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNMyFacepp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9948C9E124238AAE00AD5403 /* MGFaceIDIDCardKernelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGFaceIDIDCardKernelKit.framework; sourceTree = "<group>"; };
+		9948C9E224238AAE00AD5403 /* MGFaceIDIDCardResouce.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGFaceIDIDCardResouce.bundle; sourceTree = "<group>"; };
+		9948C9E324238AAE00AD5403 /* MGFaceIDIDCardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGFaceIDIDCardKit.framework; sourceTree = "<group>"; };
+		996A595A2424606500663C1E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		996A595B2424606500663C1E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		99C1168324234D6D005B7037 /* MGFaceIDBaseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGFaceIDBaseKit.framework; sourceTree = "<group>"; };
+		99C1168424234D6D005B7037 /* MGFaceIDLiveDetect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGFaceIDLiveDetect.framework; sourceTree = "<group>"; };
+		99C1168C24234EB7005B7037 /* MGFaceIDLiveCustomDetect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGFaceIDLiveCustomDetect.bundle; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNMyFacepp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNMyFacepp.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNMyFacepp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNMyFacepp.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -33,6 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99C116962423690D005B7037 /* MGFaceIDLiveDetect.framework in Frameworks */,
+				99C1169524236904005B7037 /* MGFaceIDBaseKit.framework in Frameworks */,
+				9948C9E524238AAE00AD5403 /* MGFaceIDIDCardKit.framework in Frameworks */,
+				9948C9E424238AAE00AD5403 /* MGFaceIDIDCardKernelKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,10 +68,34 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				996A59592424606500663C1E /* HUD */,
+				9948C9E224238AAE00AD5403 /* MGFaceIDIDCardResouce.bundle */,
+				99C1168C24234EB7005B7037 /* MGFaceIDLiveCustomDetect.bundle */,
 				B3E7B5881CC2AC0600A0062D /* RNMyFacepp.h */,
 				B3E7B5891CC2AC0600A0062D /* RNMyFacepp.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				99C1168724234E3A005B7037 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		996A59592424606500663C1E /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				996A595A2424606500663C1E /* MBProgressHUD.m */,
+				996A595B2424606500663C1E /* MBProgressHUD.h */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
+		99C1168724234E3A005B7037 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9948C9E124238AAE00AD5403 /* MGFaceIDIDCardKernelKit.framework */,
+				9948C9E324238AAE00AD5403 /* MGFaceIDIDCardKit.framework */,
+				99C1168324234D6D005B7037 /* MGFaceIDBaseKit.framework */,
+				99C1168424234D6D005B7037 /* MGFaceIDLiveDetect.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,7 +107,7 @@
 			buildPhases = (
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
-				58B511D91A9E6C8500147676 /* CopyFiles */,
+				58B511D91A9E6C8500147676 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -95,6 +137,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -113,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E7B58A1CC2AC0600A0062D /* RNMyFacepp.m in Sources */,
+				996A595C2424606500663C1E /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +187,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -186,6 +231,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -203,32 +249,58 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = RNMyFacepp;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		58B511F11A9E6C8500147676 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/MGFaceIDBaseKit.framework",
+					"$(PROJECT_DIR)/MGFaceIDLiveDetect.framework",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = RNMyFacepp;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/MGFaceIDBaseKit.framework",
+					"$(PROJECT_DIR)/MGFaceIDLiveDetect.framework",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = RNMyFacepp;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 			};
 			name = Release;
 		};
