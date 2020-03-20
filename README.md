@@ -3,21 +3,17 @@
 
 ## Getting started
 
-`$ npm install react-native-my-facepp --save`
+`$ yarn add react-native-my-facepp`
 
-### Mostly automatic installation
-
-`$ react-native link react-native-my-facepp`
 
 ### Manual installation
 
 
 #### iOS
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-my-facepp` and add `RNMyFacepp.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNMyFacepp.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
+1. cd ios && pod install
+2. target link binary with libraries 添加faceId 需要的系统framework
+
 
 #### Android
 
@@ -34,20 +30,12 @@
       compile project(':react-native-my-facepp')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNMyFacepp.sln` in `node_modules/react-native-my-facepp/windows/RNMyFacepp.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using My.Facepp.RNMyFacepp;` to the usings at the top of the file
-  - Add `new RNMyFaceppPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
 ## Usage
 ```javascript
 import RNMyFacepp from 'react-native-my-facepp';
 
 // TODO: What to do with the module?
-RNMyFacepp;
+//身份证识别
+RNMyFacepp.startIdCardDetectShootPage(0,(status,imgstr)=>{
+             });
 ```
-  
