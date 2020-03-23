@@ -28,9 +28,21 @@ android {
 
 repositories {
     mavenCentral()
+    flatDir{
+        dirs 'libs'
+    }
 }
 
+//lintOptions {
+//    checkReleaseBuilds false
+//    abortOnError false
+//}
+
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.facebook.react:react-native:+'
+    implementation project(':idcard_quality')
+    implementation(name:'meglive_still', ext:'aar')
+
 }
   
