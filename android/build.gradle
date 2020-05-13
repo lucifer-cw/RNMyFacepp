@@ -11,6 +11,12 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -26,23 +32,12 @@ android {
     }
 }
 
-repositories {
-    mavenCentral()
-    flatDir{
-        dirs 'libs'
-    }
-}
-
-//lintOptions {
-//    checkReleaseBuilds false
-//    abortOnError false
-//}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'com.facebook.react:react-native:+'
-    implementation project(':idcard_quality')
-    implementation(name:'meglive_still', ext:'aar')
+    implementation (name:'meglive_still', ext:'aar')
 
+    implementation project(':idcard_quality')
 }
   

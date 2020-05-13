@@ -9,8 +9,12 @@ import android.content.pm.PackageManager;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
+import com.facebook.react.bridge.Promise;
 import com.megvii.demo.utils.Configuration;
+
+import android.graphics.Bitmap;
 import android.os.Build;
+import android.util.Base64;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -27,17 +31,21 @@ import com.megvii.meglive_sdk.listener.DetectCallback;
 import com.megvii.meglive_sdk.listener.PreCallback;
 import com.megvii.meglive_sdk.manager.MegLiveManager;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import static android.app.Activity.RESULT_OK;
 import static android.os.Build.VERSION_CODES.M;
 import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
 
-public class RNMyFaceppModule extends ReactContextBaseJavaModule implements PreCallback , DetectCallback {
+public class RNMyFaceppModule extends ReactContextBaseJavaModule implements PreCallback ,DetectCallback{
 
   private final ReactApplicationContext reactContext;
   private IDCardQualityLicenseManager mIdCardLicenseManager;
   private static final int INTO_IDCARDSCAN_PAGE = 100;
   private MegLiveManager megLiveManager;
   private Callback jscallback = null;
+  private Promise jspromise = null;
 
   private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
 
@@ -45,17 +53,49 @@ public class RNMyFaceppModule extends ReactContextBaseJavaModule implements PreC
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
       if (requestCode == INTO_IDCARDSCAN_PAGE && resultCode == RESULT_OK) {
         if(jscallback !=  null){
-          System.out.print("wo ca ,xianzai jiu zhi xing le ?");
-          if(intent != null && intent.getStringExtra("base64") != null){
-            String result = intent.getStringExtra("base64");//得到新Activity 关闭后返回的数据
-//            data.getByteArrayExtra("portraitimg_bitmap");
-//            data.getByteArrayExtra("idcardimg_bitmap");
+          if(intent != null ){
+            String result = new String(Base64.encode(intent.getByteArrayExtra("idcardimg_bitmap"),Base64.NO_WRAP));
             jscallback.invoke(null,result);
           }
         }
       }
     }
   };
+
+  /**
+   * bitmap转为base64
+   * @param bitmap
+   * @return
+   */
+  public static String bitmapToBase64(Bitmap bitmap) {
+
+    String result = null;
+    ByteArrayOutputStream baos = null;
+    try {
+      if (bitmap != null) {
+        baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        baos.flush();
+        baos.close();
+
+        byte[] bitmapBytes = baos.toByteArray();
+        result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (baos != null) {
+          baos.flush();
+          baos.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return result;
+  }
 
   public RNMyFaceppModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -155,14 +195,19 @@ public class RNMyFaceppModule extends ReactContextBaseJavaModule implements PreC
 
   @ReactMethod
   public void startIdCardDetectShootPage(Integer page, Callback callback) {
+    this.jscallback = callback;
     //1、初始化配置
     initConfig();
     //2、请求授权信息
-    startGetLicense(page);
+    startGetLicense(page+1);
   }
 
+//  活体采集识别
   @ReactMethod
-  public void startLiveDetect(String bizToken, Callback callback){
+  public void startLiveDetect(String bizToken, Promise promise){
+    this.jspromise = promise;
+    requestCameraPerm();
+    init();
     megLiveManager.preDetect(this.reactContext, bizToken,"en","https://api.megvii.com", this);
   }
 
@@ -187,7 +232,10 @@ public class RNMyFaceppModule extends ReactContextBaseJavaModule implements PreC
   @Override
   public void onDetectFinish(String token, int errorCode, String errorMessage, String data) {
     if (errorCode == 1000) {
+      this.jspromise.resolve(data);
 //      verify(token, data.getBytes());
+    }else {
+      this.jspromise.reject("err",errorMessage);
     }
   }
 

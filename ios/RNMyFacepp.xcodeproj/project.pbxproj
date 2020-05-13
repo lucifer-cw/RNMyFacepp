@@ -265,6 +265,7 @@
 					"$(PROJECT_DIR)/MGFaceIDBaseKit.framework",
 					"$(PROJECT_DIR)/MGFaceIDLiveDetect.framework",
 				);
+				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -294,6 +295,7 @@
 					"$(PROJECT_DIR)/MGFaceIDBaseKit.framework",
 					"$(PROJECT_DIR)/MGFaceIDLiveDetect.framework",
 				);
+				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",

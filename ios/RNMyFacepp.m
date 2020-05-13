@@ -78,12 +78,14 @@ RCT_EXPORT_METHOD(startIdCardDetectShootPage:(NSUInteger)page CallBack:(RCTRespo
     MGFaceIDIDCardErrorItem* errorItem;
     MGFaceIDIDCardManager* idcardManager = [[MGFaceIDIDCardManager alloc] initMGFaceIDIDCardManagerWithExtraData:nil error:&errorItem];
     if (errorItem && !idcardManager) {
-        MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:[[[RNMyFacepp shareInstance] rootViewController]view] animated:YES];
-        [hud setMode:MBProgressHUDModeText];
+//        MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:[[[RNMyFacepp shareInstance] rootViewController]view] animated:YES];
+//        [hud setMode:MBProgressHUDModeText];
         NSString* errorMessageStr = [NSString stringWithFormat:@"身份证检测启动失败\n失败原因:%@", errorItem.errorMessage];
-        [hud.label setText:errorMessageStr];
-        [hud.label setNumberOfLines:2];
-        [hud hideAnimated:YES afterDelay:2];
+//        [hud.label setText:errorMessageStr];
+//        [hud.label setNumberOfLines:2];
+//        [hud hideAnimated:YES afterDelay:2];
+        
+        [[RNMyFacepp shareInstance] showCheckMessage:errorMessageStr];
         return;
     }
     MGFaceIDIDCardConfigItem* configItem = [[MGFaceIDIDCardConfigItem alloc] init];
@@ -94,9 +96,9 @@ RCT_EXPORT_METHOD(startIdCardDetectShootPage:(NSUInteger)page CallBack:(RCTRespo
                                     callback:^(MGFaceIDIDCardErrorItem *errorItem, MGFaceIDIDCardDetectItem *detectItem, NSDictionary *extraOutDataDict) {
                                         if (!errorItem || errorItem.errorType == MGFaceIDIDCardErrorNone) {
                                             
-                                                NSData *data = UIImagePNGRepresentation(detectItem.idcardImageItem.idcardImage);
+                                                NSData *data = UIImageJPEGRepresentation(detectItem.idcardImageItem.idcardImage,90);
                                                 NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-                                            //    encodedImageStr = [@"data:image/jpeg;base64," stringByAppendingString:encodedImageStr];
+//                                                encodedImageStr = [@"data:image/jpeg;base64," stringByAppendingString:encodedImageStr];
                                                 [RNMyFacepp shareInstance].callBackCopy(@[[NSNull null],encodedImageStr]);
                                         }
                                     }];
@@ -104,9 +106,9 @@ RCT_EXPORT_METHOD(startIdCardDetectShootPage:(NSUInteger)page CallBack:(RCTRespo
 
 
 //活体识别
-RCT_EXPORT_METHOD(startLiveDetect:(NSString*)bizToken Callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(startLiveDetect:(NSString*)bizToken detectResolver:(RCTPromiseResolveBlock)resolve
+rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[RNMyFacepp shareInstance] setCallBackCopy:callback];
     MGFaceIDLiveDetectError* error;
     MGFaceIDLiveDetectManager* detectManager = [[MGFaceIDLiveDetectManager alloc] initMGFaceIDLiveDetectManagerWithBizToken:bizToken
                                                                                                                    language:MGFaceIDLiveDetectLanguageCh
@@ -125,7 +127,19 @@ RCT_EXPORT_METHOD(startLiveDetect:(NSString*)bizToken Callback:(RCTResponseSende
     
     [detectManager startMGFaceIDLiveDetectWithCurrentController:[RNMyFacepp shareInstance].rootViewController
                                                        callback:^(MGFaceIDLiveDetectError *error, NSData *deltaData, NSString *bizTokenStr, NSDictionary *extraOutDataDict) {
-                                                           [[RNMyFacepp shareInstance] showCheckMessage:error.errorMessageStr];
+        
+        if(error.errorType == MGFaceIDLiveDetectErrorNone){
+            NSString * str  =[[NSString alloc] initWithData:deltaData encoding:NSUTF8StringEncoding];
+            resolve(str);
+        }else{
+            reject(@"err",error.errorMessageStr,[NSError errorWithDomain:@"faceIDLive" code:error.errorType userInfo:nil]);
+            [[RNMyFacepp shareInstance] showCheckMessage:error.errorMessageStr];
+        }
+    
+//        NSString *blobstr =[deltaData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//        NSString * str  =[[NSString alloc] initWithData:deltaData encoding:NSUTF8StringEncoding];
+//                                                            [RNMyFacepp shareInstance].callBackCopy(@[[NSNull null],str]);
+                                                           
                                                        }];
 }
 
